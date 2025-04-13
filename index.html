@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan Circuit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Titan Circuit</h1>
+
+        <div class="status-bar">
+            <div class="player-info">
+                Player: <span id="current-player">Red</span>
+            </div>
+            <div class="score">
+                Score: Red <span id="score-red">0</span> - Blue <span id="score-blue">0</span>
+            </div>
+            <div class="timers">
+                Overall: <span id="overall-timer">10:00</span> | Turn: <span id="turn-timer">0:30</span>
+            </div>
+             <div class="game-phase">
+                Phase: <span id="game-phase">Placement</span>
+            </div>
+        </div>
+
+        <div class="board-area">
+            <div id="game-board">
+                </div>
+        </div>
+
+        <div class="controls">
+            <button id="pause-button">Pause</button>
+            <button id="resume-button" disabled>Resume</button>
+            <button id="reset-button">Reset</button>
+        </div>
+
+         <div id="message-area"></div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
