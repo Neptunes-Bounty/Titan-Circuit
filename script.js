@@ -1,12 +1,12 @@
 // Hello There! Welcome to very poorly thought out and hastily built program time!!1!
 // Proceed with caution. Errors and bugs lurk in this unforgiving place. 
-// Comments are available for you enjoyment. 
+// Comments are available for your enjoyment (please ignore typos) 
 // (added // everywhere using a script 'cause didn't want to do it everytime, sorry.)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Elements ---
-    const board = document.getElementById('game-board'); // Look, I know the naming is absolutely soulless but
-    const currentPlayerDisplay = document.getElementById('current-player');// hey, you gotta do what you gotta do
+    const board = document.getElementById('game-board'); // 
+    const currentPlayerDisplay = document.getElementById('current-player');//
     const scoreRedDisplay = document.getElementById('score-red'); // CamelCase, my beloved
     const scoreBlueDisplay = document.getElementById('score-blue');// seriously, this is my first attempt at using 
     const overallTimerDisplay = document.getElementById('overall-timer');// CamelCase in this big of a project.
@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // This calculates the coordinates and draws lines after the nodes have been created.
         requestAnimationFrame(() => {
-             calculateNodePixelCoords(); // Helper function defined below
-             createEdgeLines(); // Helper function defined below - Draws ALL edges
+             calculateNodePixelCoords(); //
+             createEdgeLines(); // Draws the edges
         });
 
         updateUI(); // 
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             board.appendChild(lineEl);
         });
-         console.log("Mission draw line has been completely successfully");
+         console.log("Mission: draw lines has been completely successfully");
     }
 
 
@@ -290,10 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
         updateScoresForMove(null, node.id, player); // Calculate score changes  
         checkCircuitUnlock(); // Checks if circuit is full  
         checkPhaseTransition(); // Checks if all titans are placed  
-        if (!gameState.gameOver) { // 
+        if (!gameState.gameOver) { //
             switchPlayer(); // 
             highlightAvailableNodes(); // Highlight avabilable moves
-        } // Holy hell, I lost this curly brace while making this and I spent an hour looking for it.
+        } // Holy hell, I lost this curly brace while making this and spent an hour looking for it.
          updateUI(); // duh
     }
 
@@ -304,25 +304,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleMovement(node) { // 
-        const player = gameState.currentPlayer; // 
+        const player = gameState.currentPlayer; //
+        checkCircuitUnlock(); 
         if (!selectedNodeId) { // Try to Select 
             if (node.occupiedBy === player) { // 
                 selectTitan(node.id); // 
             } else if (node.occupiedBy) { // 
-                setMessage("Bro, Move your Titan."); // 
+                setMessage("Please select one of your Titan."); // 
             } else { // 
-                setMessage("Select one of your titans to move."); // 
+                setMessage("Select one of your Titans to move."); // 
             } // 
         } else { // Try to Move 
             const originNode = nodes[selectedNodeId]; // 
             const targetNode = node; // 
             const isAdjacent = originNode.adjacencies.some(adj => adj.nodeId === targetNode.id); // 
             const isEmpty = !targetNode.occupiedBy; // 
-
             if (targetNode.id === selectedNodeId) { // Clicked same node 
-                deselectTitan(); // 
-            } else if (isAdjacent && isEmpty) { // Valid Move 
+                deselectTitan()
+                console.log("Message: Origin should be different from the destination."); // 
+            } else if (isAdjacent && isEmpty && (CIRCUITS.indexOf(targetNode.circuit) <= gameState.unlockedCircuitIndex)) { // Valid Move 
                 console.log(`Moving ${player} from ${originNode.id} to ${targetNode.id}`); // 
+                console.log("Point4")
                 updateScoresForMove(originNode.id, targetNode.id, player); // Update score BEFORE move 
                 // Move titan visually
                 targetNode.occupiedBy = player; // 
@@ -366,11 +368,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
      function highlightPossibleMoves(nodeId) { // 
         clearHighlights(); // Clear previous 
-        const node = nodes[nodeId]; // 
+        const node = nodes[nodeId];
+        console.log("logging") // 
         if (!node) return; // 
         node.adjacencies.forEach(adj => { // 
             const adjacentNode = nodes[adj.nodeId]; // 
-            if (adjacentNode && !adjacentNode.occupiedBy) { // 
+            if (adjacentNode && !adjacentNode.occupiedBy && (CIRCUITS.indexOf(adjacentNode.circuit) <= gameState.unlockedCircuitIndex)) { // 
                 adjacentNode.element.classList.add('possible-move'); // 
             }
         }); // 
@@ -379,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
      function highlightAvailableNodes() { // 
         clearHighlights(); // 
         if (gameState.phase !== 'Placement' || isPaused || gameState.gameOver) return; // 
-        const currentCircuit = CIRCUITS[gameState.unlockedCircuitIndex]; // 
+        const currentCircuit = CIRCUITS[gameState.unlockedCircuitIndex];
         for (const id in nodes) { // 
             const node = nodes[id]; // 
             if (node.circuit === currentCircuit && !node.occupiedBy) { // 
@@ -398,13 +401,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameState.unlockedCircuitIndex >= CIRCUITS.length - 1) return; // Already fully unlocked  
         const currentCircuitId = CIRCUITS[gameState.unlockedCircuitIndex]; // 
         let nodesInCircuit = 0; // 
-        let occupiedNodes = 0; // 
+        let occupiedNodes = 0;
         for (const id in nodes) { // 
             if (nodes[id].circuit === currentCircuitId) { // 
                 nodesInCircuit++; // 
                 if (nodes[id].occupiedBy) occupiedNodes++; //  
             }
         }
+        console.log( "fure", occupiedNodes, nodesInCircuit)
         if (occupiedNodes >= nodesInCircuit) { // 
             gameState.unlockedCircuitIndex++; // 
             const nextCircuit = CIRCUITS[gameState.unlockedCircuitIndex]; // 
@@ -695,5 +699,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Start --- 
     initGame(); 
 
-}); // Finally Done! Took some help from LLM's but didn't just copy paste their code in, so fair game for giving a week deadline, I suppose.
+}); 
 // ~Fin~
