@@ -4,171 +4,177 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #121212; 
+    color: #e0e0e0; 
     margin: 0;
+    line-height: 1.6; 
 }
 
 .game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    background-color: #fff;
+    padding: 30px; 
+    background-color: #1e1e1e; 
+    border: 1px solid #333; 
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
     width: 95%;
-    max-width: 800px; /* Adjust max width as needed */
+    max-width: 800px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+    text-align: center; 
 }
 
 .status-bar {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap;
     justify-content: space-around;
-    width: 100%;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    font-size: 0.9em; /* Adjust base font size */
+    width: 100%; 
+    margin-bottom: 25px; 
+    padding-bottom: 15px; 
+    border-bottom: 1px solid #444; 
+    font-size: 1em; 
+    color: #c0c0c0; 
 }
 
 .status-bar > div {
-    margin: 5px 10px; /* Add spacing between status items */
+    margin: 5px 15px; 
 }
 
-.player-info #current-player.red { color: red; font-weight: bold; }
-.player-info #current-player.blue { color: blue; font-weight: bold; }
+.player-info #current-player.red { color: #ff5252; font-weight: bold; } 
+.player-info #current-player.blue { color: #448aff; font-weight: bold; } 
 
 .board-area {
     width: 100%;
-    /* Use aspect-ratio to maintain shape roughly */
-    aspect-ratio: 1 / 1; /* Keep it squareish for the hex layout */
-    max-width: 500px; /* Max size of the board itself */
-    margin: 0 auto; /* Center the board area */
-    position: relative; /* Needed for absolute positioning of nodes */
+    aspect-ratio: 1 / 1;
+    max-width: 500px;
+    margin: 0 auto 20px auto; 
+    position: relative;
 }
 
 #game-board {
     position: relative;
     width: 100%;
     height: 100%;
-    /* background-color: #eee; Optional: for visibility */
 }
 
-/* --- Node Styling --- */
+
 .node {
     position: absolute;
-    width: 8%; /* Responsive size based on container */
+    width: 8%;
     height: 8%;
-    background-color: #ddd;
-    border: 2px solid #555;
+    background-color: #3a3a3a; 
+    border: 2px solid #5c5c5c; 
     border-radius: 50%;
     box-sizing: border-box;
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    transform: translate(-50%, -50%); /* Center node on its coords */
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+    transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 
 .node:hover {
-    border-color: #000;
+    border-color: #888; 
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .node.available {
-    background-color: #c8e6c9; /* Light green for available */
+    background-color: #2e7d32; 
+    border-color: #4caf50;
 }
 
 .node.red-titan {
-    background-color: red;
-    border-color: darkred;
+    background-color: #d32f2f; 
+    border-color: #f44336; 
 }
 
 .node.blue-titan {
-    background-color: blue;
-    border-color: darkblue;
+    background-color: #1976d2; 
+    border-color: #2196f3; 
 }
 
 .node.selected {
-    border-color: gold;
+    border-color: #ffeb3b; 
     border-width: 3px;
-    box-shadow: 0 0 8px gold;
+    box-shadow: 0 0 8px #ffeb3b;
 }
 
 .node.possible-move {
-    background-color: yellow;
-    border-color: orange;
+    background-color: #fbc02d; 
+    border-color: #fdd835;
 }
 
 .line {
     position: absolute;
-    background-color: #bbb; /* Light grey lines */
+    background-color: #4a4a4a; 
     height: 2px;
-    transform-origin: 0 50%; /* Rotate around start point */
-    z-index: 1; /* Below nodes and weights */
+    transform-origin: 0 50%;
+    z-index: 1;
     pointer-events: none;
 }
 
-/* --- Edge Weight Styling --- */
+
 .edge-weight {
     position: absolute;
     transform: translate(-50%, -50%);
-    /* Increased font size and weight */
-    font-size: 0.9em; /* Make it larger */
-    font-weight: bold; /* Make it bolder */
-    color: #000; /* Ensure good contrast on light background */
-    /* More opaque background */
-    background-color: rgba(255, 255, 255, 0.85); /* Less transparent */
-    padding: 2px 4px; /* Slightly more padding */
-    border-radius: 3px;
+    font-size: 0.95em; 
+    font-weight: bold;
+    color: #f0f0f0; 
+    
     pointer-events: none;
-    z-index: 5; /* Keep it above lines */
+    z-index: 5;
 }
 
-.node {
-    /* ... other node styles ... */
-    z-index: 10;
-    position: absolute; /* Ensure this is still present */
-     display: flex;
-     justify-content: center;
-     align-items: center;
-}
 
-/* --- Controls --- */
 .controls {
-    margin-top: 20px;
+    margin-top: 25px; 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+    flex-wrap: wrap; 
 }
 
 .controls button {
-    padding: 8px 15px;
-    margin: 0 5px;
+    padding: 10px 20px; 
     cursor: pointer;
-    border: 1px solid #ccc;
+    background-color: #004c8c; 
+    color: #e0e0e0; 
+    border: 1px solid #003660; 
     border-radius: 5px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.controls button:hover:not(:disabled) {
+    background-color: #005a9e;
+    border-color: #004274;
 }
 
 .controls button:disabled {
     cursor: not-allowed;
-    opacity: 0.6;
+    background-color: #333;
+    color: #777;
+    border-color: #444;
+    opacity: 0.7; 
 }
 
 #message-area {
-    margin-top: 15px;
+    margin-top: 20px; 
     font-weight: bold;
-    min-height: 1.2em; /* Prevent layout shifts */
+    min-height: 1.5em; 
+    color: #b0b0b0; 
+    font-size: 1.1em; 
 }
 
-/* --- Positioning (Example - Requires precise calculation) --- */
-/* These percentages are approximate and need fine-tuning */
-/* Outer Ring (Radius ~45%) */
+
 #node-outer-0 { top: 50%; left: 95%; }
-#node-outer-1 { top: 27.5%; left: 72.5%; } /* approx sin(60)*45 + 50, cos(60)*45 + 50 */
+#node-outer-1 { top: 27.5%; left: 72.5%; }
 #node-outer-2 { top: 27.5%; left: 27.5%; }
 #node-outer-3 { top: 50%; left: 5%; }
 #node-outer-4 { top: 72.5%; left: 27.5%; }
 #node-outer-5 { top: 72.5%; left: 72.5%; }
 
-/* Middle Ring (Radius ~30%) */
 #node-middle-0 { top: 50%; left: 80%; }
 #node-middle-1 { top: 35%; left: 65%; }
 #node-middle-2 { top: 35%; left: 35%; }
@@ -176,7 +182,6 @@ body {
 #node-middle-4 { top: 65%; left: 35%; }
 #node-middle-5 { top: 65%; left: 65%; }
 
-/* Inner Ring (Radius ~15%) */
 #node-inner-0 { top: 50%; left: 65%; }
 #node-inner-1 { top: 42.5%; left: 57.5%; }
 #node-inner-2 { top: 42.5%; left: 42.5%; }
@@ -184,26 +189,32 @@ body {
 #node-inner-4 { top: 57.5%; left: 42.5%; }
 #node-inner-5 { top: 57.5%; left: 57.5%; }
 
-/* --- Responsiveness --- */
+
 @media (max-width: 600px) {
     .status-bar {
-        font-size: 0.8em;
-        flex-direction: column; /* Stack status items */
+        font-size: 0.9em; 
+        flex-direction: column;
         align-items: center;
         text-align: center;
     }
     .status-bar > div {
-        margin: 3px 0;
+        margin: 5px 0; 
     }
     .node {
-        width: 10%; /* Slightly larger nodes relative to smaller board */
+        width: 10%;
         height: 10%;
     }
     .edge-weight {
-        font-size: 0.7em;
+        font-size: 0.8em; 
+    }
+    .controls {
+        gap: 10px; 
     }
     .controls button {
-        padding: 6px 10px;
+        padding: 8px 15px; 
+    }
+    #message-area {
+        font-size: 1em; 
     }
 }
 
@@ -213,8 +224,10 @@ body {
         height: 12%;
     }
      .edge-weight {
-        font-size: 0.6em;
+        font-size: 0.7em; 
+    }
+    .controls button {
+        width: 100%; 
+        margin-bottom: 5px;
     }
 }
-
-</style>
