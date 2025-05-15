@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createBoardElements() { // 
-        // Self Explanatory,jk (creates nodes)
+        // Self Explanatory, jk (creates nodes)
         for (const id in nodePositions) { // 
             const pos = nodePositions[id]; // 
             const nodeEl = document.createElement('div'); // 
@@ -155,7 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             const weightEl = document.createElement('span'); // 
             weightEl.classList.add('edge-weight'); // 
-            weightEl.id = `weight-${weightId}`; // 
+            weightEl.id = `weight-${weightId}`;
+            if (weight < 1) return; // 
             weightEl.textContent = weight; // EDGE weight for scoring ref 
             // Position roughly halfway between nodes
             weightEl.style.top = `${(pos1.x + pos2.x) / 2}%`; // 
@@ -222,7 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const dx = x2 - x1;
             const dy = y2 - y1;
             const length = Math.sqrt(dx * dx + dy * dy);
-            if (length < 1) return; // Avoid zero-length lines
+            if (length < 1) return;
+            if (_weight < 1) return; // Avoid zero-length lines
             const angle = Math.atan2(dy, dx) * (180 / Math.PI); // 
 
             const lineEl = document.createElement('div');
